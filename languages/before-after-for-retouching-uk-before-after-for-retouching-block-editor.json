@@ -1,5 +1,5 @@
 {
-    "translation-revision-date":  "2026-07-13 19:02+0000",
+    "translation-revision-date":  "2026-07-13 22:39+0000",
     "generator":  "Before \u0026 After for Retouching translation builder",
     "source":  "assets/js/before-after-for-retouching-block.js",
     "domain":  "messages",
@@ -103,6 +103,9 @@
                                          "Cover (may crop)":  [
                                                                   "Заповнити (можливе обрізання)"
                                                               ],
+                                         "Current ratio: %1$s / %2$s":  [
+                                                                            "Поточні пропорції: %1$s / %2$s"
+                                                                        ],
                                          "Custom":  [
                                                         "Власне"
                                                     ],
@@ -169,6 +172,12 @@
                                          "No image selected":  [
                                                                    "Зображення не вибрано"
                                                                ],
+                                         "Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear.":  [
+                                                                                                                                                                        "Вставте цей шорткод у запис, сторінку або інший блок, де має відображатися порівняння зображень."
+                                                                                                                                                                    ],
+                                         "Photography Blog — Articles, Tutorials, and Courses":  [
+                                                                                                     "Блог для фотографа — статті, уроки, курси"
+                                                                                                 ],
                                          "Plugin by":  [
                                                            "Плагін від"
                                                        ],
@@ -181,6 +190,9 @@
                                          "Replace image":  [
                                                                "Замінити зображення"
                                                            ],
+                                         "Select a Before image":  [
+                                                                       "Виберіть зображення До"
+                                                                   ],
                                          "Select both images to generate a shortcode.":  [
                                                                                              "Виберіть обидва зображення, щоб створити шорткод."
                                                                                          ],
@@ -199,6 +211,9 @@
                                          "Select the Before image":  [
                                                                          "Виберіть зображення До"
                                                                      ],
+                                         "Set up comparison":  [
+                                                                   "Налаштувати порівняння"
+                                                               ],
                                          "Shortcode":  [
                                                            "Шорткод"
                                                        ],

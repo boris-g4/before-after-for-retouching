@@ -22,6 +22,7 @@
   var sizeWarning = root.querySelector('[data-bafrt-size-warning]');
   var startOutput = root.querySelector('[data-bafrt-start-output]');
   var customRatioWrap = root.querySelector('[data-bafrt-custom-ratio-wrap]');
+  var currentRatio = root.querySelector('[data-bafrt-current-ratio]');
 
   root.querySelectorAll('[data-bafrt-field]').forEach(function (field) {
     fields[field.getAttribute('data-bafrt-field')] = field;
@@ -162,6 +163,23 @@
     });
   }
 
+  function updateRatioControls() {
+    var mode = fields.ratio.value;
+    var beforeVariant;
+
+    customRatioWrap.hidden = mode !== 'custom';
+    currentRatio.hidden = mode !== 'auto';
+
+    if (mode !== 'auto') {
+      return;
+    }
+
+    beforeVariant = selectedVariant(state.before);
+    currentRatio.textContent = beforeVariant && beforeVariant.width && beforeVariant.height
+      ? formatValueText(bafrtAdmin.currentRatio, beforeVariant.width, beforeVariant.height)
+      : bafrtAdmin.selectBefore;
+  }
+
   function updatePreview() {
     var ready = Boolean(state.before && state.after);
     var beforeImage = preview.querySelector('.bafrt-compare__image--before');
@@ -297,7 +315,7 @@
   }
 
   function updateAll() {
-    customRatioWrap.hidden = fields.ratio.value !== 'custom';
+    updateRatioControls();
     startOutput.value = fields.start.value + '%';
     startOutput.textContent = fields.start.value + '%';
     root.querySelector('[data-bafrt-before-label-field]').hidden = !fields.showBeforeLabel.checked;

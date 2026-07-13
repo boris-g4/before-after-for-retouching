@@ -106,6 +106,9 @@ msgstr ""
 msgid "Cover (may crop)"
 msgstr ""
 
+msgid "Current ratio: %1$s / %2$s"
+msgstr ""
+
 msgid "Custom"
 msgstr ""
 
@@ -175,6 +178,12 @@ msgstr ""
 msgid "of the After image is visible"
 msgstr ""
 
+msgid "Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear."
+msgstr ""
+
+msgid "Photography Blog — Articles, Tutorials, and Courses"
+msgstr ""
+
 msgid "Plugin by"
 msgstr ""
 
@@ -185,6 +194,9 @@ msgid "Remove"
 msgstr ""
 
 msgid "Replace image"
+msgstr ""
+
+msgid "Select a Before image"
 msgstr ""
 
 msgid "Select both images to generate a shortcode."
@@ -203,6 +215,9 @@ msgid "Select the After image"
 msgstr ""
 
 msgid "Select the Before image"
+msgstr ""
+
+msgid "Set up comparison"
 msgstr ""
 
 msgid "Shortcode"

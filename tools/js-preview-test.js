@@ -44,10 +44,21 @@ var adminFields = {
   customRatio: { value: '3/2' }
 };
 var adminState = { before: null, after: null };
+var customRatioWrap = {};
+var currentRatio = {};
 var admin = loadFunctions(
   adminSource,
-  ['normalizeVariant', 'normalizeSizes', 'normalizeAttachment', 'selectedVariant', 'getRatioValue', 'ratioForPreview', 'formatValueText'],
-  { fields: adminFields, state: adminState }
+  ['normalizeVariant', 'normalizeSizes', 'normalizeAttachment', 'selectedVariant', 'getRatioValue', 'ratioForPreview', 'formatValueText', 'updateRatioControls'],
+  {
+    fields: adminFields,
+    state: adminState,
+    customRatioWrap: customRatioWrap,
+    currentRatio: currentRatio,
+    bafrtAdmin: {
+      currentRatio: 'Current ratio: %1$s / %2$s',
+      selectBefore: 'Select a Before image'
+    }
+  }
 );
 var media = {
   id: 123,
@@ -62,6 +73,11 @@ var media = {
 };
 adminState.before = admin.normalizeAttachment(media);
 
+admin.updateRatioControls();
+assert(customRatioWrap.hidden === true, 'admin Auto hides Custom ratio');
+assert(currentRatio.hidden === false, 'admin Auto shows Current ratio');
+assert(currentRatio.textContent === 'Current ratio: 6000 / 4000', 'admin Auto ratio uses full Before dimensions');
+
 adminFields.size.value = 'full';
 assert(admin.selectedVariant(adminState.before).url === 'full.jpg', 'admin full preview');
 adminFields.size.value = 'medium';
@@ -71,6 +87,38 @@ assert(admin.selectedVariant(adminState.before).url === 'large.jpg', 'admin larg
 adminFields.size.value = 'custom_crop';
 assert(admin.selectedVariant(adminState.before).url === 'crop.jpg', 'admin custom crop preview');
 assert(admin.ratioForPreview() === '400 / 300', 'admin auto ratio uses selected crop');
+admin.updateRatioControls();
+assert(currentRatio.textContent === 'Current ratio: 400 / 300', 'admin Current ratio uses selected crop dimensions');
+adminFields.customRatio.value = '923/1000';
+adminFields.ratio.value = 'custom';
+admin.updateRatioControls();
+assert(customRatioWrap.hidden === false, 'admin Custom shows Custom ratio');
+assert(currentRatio.hidden === true, 'admin Custom hides Current ratio');
+adminFields.ratio.value = 'auto';
+admin.updateRatioControls();
+assert(adminFields.customRatio.value === '923/1000', 'admin preserves Custom ratio while switching modes');
+adminState.after = admin.normalizeAttachment({
+  id: 124,
+  url: 'swapped-full.jpg',
+  width: 1200,
+  height: 800,
+  sizes: {
+    custom_crop: { url: 'swapped-crop.jpg', width: 600, height: 600 }
+  }
+});
+var swappedBefore = adminState.before;
+adminState.before = adminState.after;
+adminState.after = swappedBefore;
+adminFields.size.value = 'full';
+admin.updateRatioControls();
+assert(currentRatio.textContent === 'Current ratio: 1200 / 800', 'admin Current ratio updates after Swap images');
+adminFields.size.value = 'custom_crop';
+admin.updateRatioControls();
+assert(currentRatio.textContent === 'Current ratio: 600 / 600', 'admin Current ratio updates after Swap and image-size change');
+adminState.before = null;
+admin.updateRatioControls();
+assert(currentRatio.textContent === 'Select a Before image', 'admin Auto prompts when Before image is missing');
+adminState.before = admin.normalizeAttachment(media);
 adminFields.size.value = 'missing_size';
 assert(admin.selectedVariant(adminState.before).url === 'full.jpg', 'admin missing size falls back to full');
 assert(admin.formatValueText('%1$s%% of the %2$s image is visible', '50', 'Retouched') === '50% of the Retouched image is visible', 'admin English aria value');

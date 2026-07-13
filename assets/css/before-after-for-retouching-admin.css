@@ -2,6 +2,10 @@
   max-width: 1440px;
 }
 
+.bafrt-admin [hidden] {
+  display: none !important;
+}
+
 .bafrt-admin__layout {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
@@ -91,6 +95,12 @@
   padding: 2px;
 }
 
+.bafrt-current-ratio {
+  align-self: end;
+  margin: 0;
+  padding: 7px 0;
+}
+
 .bafrt-toggles {
   display: flex;
   flex-wrap: wrap;
@@ -131,10 +141,31 @@
   padding: 8px 12px;
 }
 
-.bafrt-author {
-  margin: 20px 0 0;
+.bafrt-admin__footer {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
   color: #646970;
-  text-align: center;
+  text-align: right;
+}
+
+.bafrt-admin__footer p {
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.bafrt-admin__footer a {
+  text-decoration: none;
+}
+
+.bafrt-admin__footer a:hover,
+.bafrt-admin__footer a:focus,
+.bafrt-admin__footer a:focus-visible {
+  text-decoration: underline;
 }
 
 @media (max-width: 1100px) {

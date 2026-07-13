@@ -98,6 +98,9 @@ msgstr "Скопируйте шорткод в генераторе Медиаф
 msgid "Cover (may crop)"
 msgstr "Заполнить (возможна обрезка)"
 
+msgid "Current ratio: %1$s / %2$s"
+msgstr "Текущие пропорции: %1$s / %2$s"
+
 msgid "Custom"
 msgstr "Собственное"
 
@@ -164,6 +167,12 @@ msgstr "Средний большой"
 msgid "No image selected"
 msgstr "Изображение не выбрано"
 
+msgid "Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear."
+msgstr "Вставьте этот шорткод в запись, страницу или другой блок, где должно отображаться сравнение изображений."
+
+msgid "Photography Blog — Articles, Tutorials, and Courses"
+msgstr "Блог для фотографа — статьи, уроки, курсы"
+
 msgid "Plugin by"
 msgstr "Плагин от"
 
@@ -175,6 +184,9 @@ msgstr "Удалить"
 
 msgid "Replace image"
 msgstr "Заменить изображение"
+
+msgid "Select a Before image"
+msgstr "Выберите изображение До"
 
 msgid "Select both images to generate a shortcode."
 msgstr "Выберите оба изображения, чтобы создать шорткод."
@@ -193,6 +205,9 @@ msgstr "Выберите изображение После"
 
 msgid "Select the Before image"
 msgstr "Выберите изображение До"
+
+msgid "Set up comparison"
+msgstr "Настроить сравнение"
 
 msgid "Shortcode"
 msgstr "Шорткод"

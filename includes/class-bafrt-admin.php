@@ -15,6 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class BAFRT_Admin {
 
 	/**
+	 * Generator page slug.
+	 *
+	 * @var string
+	 */
+	const PAGE_SLUG = 'before-after-for-retouching';
+
+	/**
+	 * Capability required to use the generator.
+	 *
+	 * @var string
+	 */
+	const CAPABILITY = 'upload_files';
+
+	/**
 	 * Admin page hook suffix.
 	 *
 	 * @var string
@@ -29,6 +43,7 @@ final class BAFRT_Admin {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( BAFRT_FILE ), array( __CLASS__, 'add_plugin_action_link' ) );
 	}
 
 	/**
@@ -40,10 +55,39 @@ final class BAFRT_Admin {
 		self::$page_hook = add_media_page(
 			__( 'Before & After Generator', 'before-after-for-retouching' ),
 			__( 'Before & After', 'before-after-for-retouching' ),
-			'upload_files',
-			'before-after-for-retouching',
+			self::CAPABILITY,
+			self::PAGE_SLUG,
 			array( __CLASS__, 'render_page' )
 		);
+	}
+
+	/**
+	 * Add a shortcut to the comparison generator on the Plugins screen.
+	 *
+	 * @param array $actions Existing plugin action links.
+	 * @return array
+	 */
+	public static function add_plugin_action_link( $actions ) {
+		if ( ! current_user_can( self::CAPABILITY ) ) {
+			return $actions;
+		}
+
+		$link = sprintf(
+			'<a href="%1$s">%2$s</a>',
+			esc_url( self::get_generator_url() ),
+			esc_html__( 'Set up comparison', 'before-after-for-retouching' )
+		);
+
+		return array_merge( array( 'bafrt_setup_comparison' => $link ), $actions );
+	}
+
+	/**
+	 * Return the existing generator page URL.
+	 *
+	 * @return string
+	 */
+	public static function get_generator_url() {
+		return admin_url( 'upload.php?page=' . self::PAGE_SLUG );
 	}
 
 	/**
@@ -64,14 +108,14 @@ final class BAFRT_Admin {
 			'before-after-for-retouching-admin',
 			BAFRT_URL . 'assets/css/before-after-for-retouching-admin.css',
 			array( 'before-after-for-retouching' ),
-			BAFRT_VERSION
+			self::get_asset_version( 'assets/css/before-after-for-retouching-admin.css' )
 		);
 
 		wp_enqueue_script(
 			'before-after-for-retouching-admin',
 			BAFRT_URL . 'assets/js/before-after-for-retouching-admin.js',
 			array( 'before-after-for-retouching', 'media-editor' ),
-			BAFRT_VERSION,
+			self::get_asset_version( 'assets/js/before-after-for-retouching-admin.js' ),
 			true
 		);
 
@@ -93,8 +137,23 @@ final class BAFRT_Admin {
 				'defaultAfter'      => __( 'After', 'before-after-for-retouching' ),
 				'imagesRequired'    => __( 'Select both images to generate a shortcode.', 'before-after-for-retouching' ),
 				'invalidCustomRatio' => __( 'Enter a custom ratio in width/height format, for example 3/2.', 'before-after-for-retouching' ),
+				/* translators: 1: Image width, 2: Image height. */
+				'currentRatio'      => __( 'Current ratio: %1$s / %2$s', 'before-after-for-retouching' ),
+				'selectBefore'      => __( 'Select a Before image', 'before-after-for-retouching' ),
 			)
 		);
+	}
+
+	/**
+	 * Return a cache-busting version for an administrative asset.
+	 *
+	 * @param string $relative_path Path relative to the plugin directory.
+	 * @return string
+	 */
+	private static function get_asset_version( $relative_path ) {
+		$modified = filemtime( BAFRT_PATH . $relative_path );
+
+		return false !== $modified ? (string) $modified : BAFRT_VERSION;
 	}
 
 	/**
@@ -103,11 +162,22 @@ final class BAFRT_Admin {
 	 * @return void
 	 */
 	public static function render_page() {
-		if ( ! current_user_can( 'upload_files' ) ) {
+		if ( ! current_user_can( self::CAPABILITY ) ) {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'before-after-for-retouching' ) );
 		}
 
 		$image_sizes = BAFRT_Renderer::get_image_size_options();
+		$user_locale = strtolower( str_replace( '-', '_', get_user_locale() ) );
+
+		if ( 0 === strpos( $user_locale, 'ru' ) ) {
+			$blog_url = 'https://green4.photo/';
+		} elseif ( 0 === strpos( $user_locale, 'uk' ) ) {
+			$blog_url = 'https://green4.photo/uk/';
+		} else {
+			$blog_url = 'https://yellowphotoschool.com/';
+		}
+
+		$blog_text = __( 'Photography Blog — Articles, Tutorials, and Courses', 'before-after-for-retouching' );
 		?>
 		<div class="wrap bafrt-admin" data-bafrt-generator>
 			<h1><?php echo esc_html__( 'Before & After Generator', 'before-after-for-retouching' ); ?></h1>
@@ -142,9 +212,10 @@ final class BAFRT_Admin {
 									<option value="custom"><?php echo esc_html__( 'Custom', 'before-after-for-retouching' ); ?></option>
 								</select>
 							</label>
+							<p class="description bafrt-current-ratio" data-bafrt-current-ratio><?php echo esc_html__( 'Select a Before image', 'before-after-for-retouching' ); ?></p>
 							<label class="bafrt-field" data-bafrt-custom-ratio-wrap hidden>
 								<span><?php echo esc_html__( 'Custom ratio', 'before-after-for-retouching' ); ?></span>
-								<input type="text" value="3/2" data-bafrt-field="customRatio" inputmode="numeric" placeholder="3/2">
+								<input type="text" value="3/2" data-bafrt-field="customRatio" inputmode="numeric">
 							</label>
 							<label class="bafrt-field">
 								<span><?php echo esc_html__( 'Initial position', 'before-after-for-retouching' ); ?>: <output data-bafrt-start-output>50%</output></span>
@@ -208,6 +279,16 @@ final class BAFRT_Admin {
 							</div>
 						</details>
 					</section>
+
+					<footer class="bafrt-admin__footer">
+						<p class="bafrt-blog-link">
+							<a href="<?php echo esc_url( $blog_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $blog_text ); ?></a>
+						</p>
+						<p class="bafrt-author">
+							<?php echo esc_html__( 'Plugin by', 'before-after-for-retouching' ); ?>
+							<a href="https://profiles.wordpress.org/borisph/" target="_blank" rel="noopener noreferrer">Boris PH</a>
+						</p>
+					</footer>
 				</main>
 
 				<aside class="bafrt-admin__sidebar">
@@ -216,10 +297,14 @@ final class BAFRT_Admin {
 						<div class="bafrt-preview-empty" data-bafrt-preview-empty><?php echo esc_html__( 'Select both images to see the preview.', 'before-after-for-retouching' ); ?></div>
 						<div class="bafrt-compare bafrt-preview" data-bafrt-compare data-bafrt-preview data-start="50" data-interaction="hover" role="group" aria-label="<?php echo esc_attr__( 'Before and after image comparison', 'before-after-for-retouching' ); ?>" hidden>
 							<div class="bafrt-compare__stage" data-bafrt-stage>
-								<div class="bafrt-compare__layer bafrt-compare__layer--before"><img class="bafrt-compare__image bafrt-compare__image--before" alt=""></div>
-								<div class="bafrt-compare__layer bafrt-compare__layer--after"><img class="bafrt-compare__image bafrt-compare__image--after" alt=""></div>
-								<div class="bafrt-compare__label bafrt-compare__label--after" aria-hidden="true"><?php echo esc_html__( 'After', 'before-after-for-retouching' ); ?></div>
-								<div class="bafrt-compare__label bafrt-compare__label--before" aria-hidden="true"><?php echo esc_html__( 'Before', 'before-after-for-retouching' ); ?></div>
+								<div class="bafrt-compare__layer bafrt-compare__layer--before">
+									<img class="bafrt-compare__image bafrt-compare__image--before" alt="">
+									<div class="bafrt-compare__label bafrt-compare__label--before" aria-hidden="true"><?php echo esc_html__( 'Before', 'before-after-for-retouching' ); ?></div>
+								</div>
+								<div class="bafrt-compare__layer bafrt-compare__layer--after">
+									<img class="bafrt-compare__image bafrt-compare__image--after" alt="">
+									<div class="bafrt-compare__label bafrt-compare__label--after" aria-hidden="true"><?php echo esc_html__( 'After', 'before-after-for-retouching' ); ?></div>
+								</div>
 								<div class="bafrt-compare__divider" aria-hidden="true"><span class="bafrt-compare__handle"></span></div>
 							</div>
 							<input class="bafrt-compare__range" data-bafrt-range type="range" min="0" max="100" step="0.1" value="50" aria-label="<?php echo esc_attr__( 'Before and after comparison position', 'before-after-for-retouching' ); ?>" aria-valuetext="<?php echo esc_attr__( '50% of the After image is visible', 'before-after-for-retouching' ); ?>" data-value-label="<?php echo esc_attr__( 'After', 'before-after-for-retouching' ); ?>" data-value-template="<?php /* translators: 1: Percentage, 2: After label. */ echo esc_attr__( '%1$s%% of the %2$s image is visible', 'before-after-for-retouching' ); ?>">
@@ -227,17 +312,13 @@ final class BAFRT_Admin {
 
 						<hr>
 						<h2><?php echo esc_html__( 'Shortcode', 'before-after-for-retouching' ); ?></h2>
-						<textarea class="large-text code" rows="5" readonly data-bafrt-shortcode aria-label="<?php echo esc_attr__( 'Generated shortcode', 'before-after-for-retouching' ); ?>"></textarea>
+						<textarea id="bafrt-generated-shortcode" class="large-text code" rows="5" readonly data-bafrt-shortcode aria-label="<?php echo esc_attr__( 'Generated shortcode', 'before-after-for-retouching' ); ?>" aria-describedby="bafrt-shortcode-help"></textarea>
+						<p id="bafrt-shortcode-help" class="description"><?php echo esc_html__( 'Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear.', 'before-after-for-retouching' ); ?></p>
 						<p><button type="button" class="button button-primary" data-bafrt-copy disabled><?php echo esc_html__( 'Copy shortcode', 'before-after-for-retouching' ); ?></button></p>
 						<p class="description" data-bafrt-copy-status aria-live="polite"></p>
 					</section>
 				</aside>
 			</div>
-
-			<p class="bafrt-author">
-				<?php echo esc_html__( 'Plugin by', 'before-after-for-retouching' ); ?>
-				<a href="https://profiles.wordpress.org/borisph/">Boris PH</a>
-			</p>
 		</div>
 		<?php
 	}

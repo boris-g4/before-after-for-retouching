@@ -6,12 +6,15 @@
 define( 'ABSPATH', __DIR__ . '/' );
 
 $GLOBALS['bafrt_actions'] = array();
+$GLOBALS['bafrt_filters'] = array();
 $GLOBALS['bafrt_shortcodes'] = array();
 $GLOBALS['bafrt_image_calls'] = array();
 $GLOBALS['bafrt_registered_block'] = '';
 $GLOBALS['bafrt_enqueued_styles'] = array();
 $GLOBALS['bafrt_enqueued_scripts'] = array();
 $GLOBALS['bafrt_block_align'] = '';
+$GLOBALS['bafrt_user_locale'] = 'en_US';
+$GLOBALS['bafrt_current_user_can'] = true;
 
 class WP_Post {
 	public $post_content = '';
@@ -23,6 +26,7 @@ function plugin_basename( $file ) { return basename( dirname( $file ) ) . '/' . 
 function is_admin() { return false; }
 function is_singular() { return false; }
 function add_action( $hook, $callback ) { $GLOBALS['bafrt_actions'][ $hook ][] = $callback; }
+function add_filter( $hook, $callback ) { $GLOBALS['bafrt_filters'][ $hook ][] = $callback; }
 function add_shortcode( $tag, $callback ) { $GLOBALS['bafrt_shortcodes'][ $tag ] = $callback; }
 function load_plugin_textdomain() { return true; }
 function wp_register_style() { return true; }
@@ -50,12 +54,15 @@ function get_block_wrapper_attributes( $extra_attributes = array() ) {
 }
 function has_shortcode() { return false; }
 function has_block() { return false; }
-function current_user_can() { return true; }
+function current_user_can() { return $GLOBALS['bafrt_current_user_can']; }
+function get_user_locale() { return $GLOBALS['bafrt_user_locale']; }
+function admin_url( $path = '' ) { return 'https://example.test/wp-admin/' . ltrim( $path, '/' ); }
 function __( $text ) { return $text; }
 function esc_html__( $text ) { return htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' ); }
 function esc_attr__( $text ) { return htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' ); }
 function esc_html( $text ) { return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' ); }
 function esc_attr( $text ) { return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' ); }
+function esc_url( $url ) { return filter_var( $url, FILTER_SANITIZE_URL ); }
 function absint( $value ) { return abs( (int) $value ); }
 function sanitize_key( $value ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $value ) ); }
 function sanitize_text_field( $value ) { return trim( strip_tags( (string) $value ) ); }
@@ -127,11 +134,46 @@ foreach ( $json_files as $json_file ) {
 $block_metadata = json_decode( file_get_contents( dirname( __DIR__ ) . '/block/block.json' ), true, 512, JSON_THROW_ON_ERROR );
 bafrt_assert( true === $block_metadata['attributes']['showSlider']['default'], 'block showSlider defaults to true' );
 bafrt_assert( array( 'wide', 'full' ) === $block_metadata['supports']['align'], 'block supports wide and full alignment' );
+$translations = json_decode( file_get_contents( dirname( __DIR__ ) . '/languages/translations.json' ), true, 512, JSON_THROW_ON_ERROR );
+bafrt_assert( 'Блог для фотографа — статьи, уроки, курсы' === $translations['ru_RU']['Photography Blog — Articles, Tutorials, and Courses'], 'Russian blog translation' );
+bafrt_assert( 'Блог для фотографа — статті, уроки, курси' === $translations['uk']['Photography Blog — Articles, Tutorials, and Courses'], 'Ukrainian blog translation' );
+bafrt_assert( 'Настроить сравнение' === $translations['ru_RU']['Set up comparison'], 'Russian action-link translation' );
+bafrt_assert( 'Налаштувати порівняння' === $translations['uk']['Set up comparison'], 'Ukrainian action-link translation' );
+bafrt_assert( 'Вставьте этот шорткод в запись, страницу или другой блок, где должно отображаться сравнение изображений.' === $translations['ru_RU']['Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear.'], 'Russian shortcode-help translation' );
+bafrt_assert( 'Вставте цей шорткод у запис, сторінку або інший блок, де має відображатися порівняння зображень.' === $translations['uk']['Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear.'], 'Ukrainian shortcode-help translation' );
+$pot = file_get_contents( dirname( __DIR__ ) . '/languages/before-after-for-retouching.pot' );
+foreach ( array( 'ru_RU', 'uk' ) as $locale ) {
+	$po = file_get_contents( dirname( __DIR__ ) . '/languages/before-after-for-retouching-' . $locale . '.po' );
+	preg_match_all( '/^msgid "(.*)"\r?$/m', $po, $po_matches );
+	$po_counts = array_count_values( array_filter( $po_matches[1], 'strlen' ) );
+	bafrt_assert( ! array_filter( $po_counts, function ( $count ) { return $count > 1; } ), "{$locale} PO has no duplicate msgids" );
+	foreach ( $translations[ $locale ] as $source => $translated ) {
+		$escaped_source = addcslashes( $source, "\\\"" );
+		bafrt_assert( false !== strpos( $po, 'msgid "' . $escaped_source . '"' ), "{$locale} PO contains source string" );
+		bafrt_assert( false !== strpos( $pot, 'msgid "' . $escaped_source . '"' ), 'POT contains source string' );
+	}
+	$mo = file_get_contents( dirname( __DIR__ ) . '/languages/before-after-for-retouching-' . $locale . '.mo' );
+	bafrt_assert( 0x950412de === unpack( 'Vmagic', substr( $mo, 0, 4 ) )['magic'], "{$locale} MO magic" );
+	bafrt_assert( false !== strpos( $mo, 'Photography Blog — Articles, Tutorials, and Courses' ), "{$locale} MO contains blog source" );
+}
 
 require dirname( __DIR__ ) . '/before-after-for-retouching.php';
+require dirname( __DIR__ ) . '/includes/class-bafrt-admin.php';
+BAFRT_Admin::init();
 
 bafrt_assert( isset( $GLOBALS['bafrt_shortcodes']['before_after_retouching'] ), 'new shortcode is registered' );
 bafrt_assert( ! isset( $GLOBALS['bafrt_shortcodes']['g4_before_after'] ), 'old shortcode is not registered' );
+bafrt_assert( isset( $GLOBALS['bafrt_filters']['plugin_action_links_before-after-for-retouching/before-after-for-retouching.php'] ), 'plugin-specific action-link filter is registered' );
+
+$plugin_actions = array( 'deactivate' => '<a href="#">Deactivate</a>' );
+$plugin_actions_with_setup = BAFRT_Admin::add_plugin_action_link( $plugin_actions );
+$plugin_action_keys = array_keys( $plugin_actions_with_setup );
+bafrt_assert( 'bafrt_setup_comparison' === $plugin_action_keys[0] && 'deactivate' === $plugin_action_keys[1], 'setup action link appears before Deactivate' );
+bafrt_assert( false !== strpos( $plugin_actions_with_setup['bafrt_setup_comparison'], 'href="https://example.test/wp-admin/upload.php?page=before-after-for-retouching"' ), 'setup action link targets the existing Media page' );
+bafrt_assert( false === strpos( $plugin_actions_with_setup['bafrt_setup_comparison'], 'target=' ), 'setup action link opens in the same tab' );
+$GLOBALS['bafrt_current_user_can'] = false;
+bafrt_assert( $plugin_actions === BAFRT_Admin::add_plugin_action_link( $plugin_actions ), 'setup action link is hidden without upload_files capability' );
+$GLOBALS['bafrt_current_user_can'] = true;
 
 BAFRT_Block::register();
 bafrt_assert( 'before-after-for-retouching/compare' === $GLOBALS['bafrt_registered_block'], 'new block name is registered' );
@@ -144,6 +186,8 @@ $admin_js = file_get_contents( dirname( __DIR__ ) . '/assets/js/before-after-for
 $block_js = file_get_contents( dirname( __DIR__ ) . '/assets/js/before-after-for-retouching-block.js' );
 $public_js = file_get_contents( dirname( __DIR__ ) . '/assets/js/before-after-for-retouching.js' );
 $public_css = file_get_contents( dirname( __DIR__ ) . '/assets/css/before-after-for-retouching.css' );
+$admin_css = file_get_contents( dirname( __DIR__ ) . '/assets/css/before-after-for-retouching-admin.css' );
+$admin_php = file_get_contents( dirname( __DIR__ ) . '/includes/class-bafrt-admin.php' );
 bafrt_assert( false !== strpos( $admin_js, "var parts = ['before_after_retouching'];" ), 'admin generator uses the new shortcode' );
 bafrt_assert( false !== strpos( $block_js, "var parts = ['before_after_retouching'];" ), 'Gutenberg copy uses the new shortcode' );
 bafrt_assert( false !== strpos( $block_js, "block: 'before-after-for-retouching/compare'" ), 'ServerSideRender uses the new block name' );
@@ -153,9 +197,49 @@ bafrt_assert( false !== strpos( $block_js, "attributes.showSlider === false" ), 
 bafrt_assert( false !== strpos( $public_css, '.bafrt-compare--slider-hidden .bafrt-compare__range' ), 'hidden slider uses a scoped modifier' );
 bafrt_assert( false !== strpos( $public_css, '.bafrt-compare--slider-hidden:focus-within' ), 'hidden slider has a visible focus indicator' );
 bafrt_assert( false !== strpos( $public_css, 'pointer-events: none' ), 'hidden control does not intercept pointer input' );
+bafrt_assert( false !== strpos( $public_css, 'clip-path: inset(0 calc(100% - var(--bafrt-position)) 0 0)' ), 'After layer clips image and nested label in the existing direction' );
+bafrt_assert( false !== strpos( $public_css, '.bafrt-compare__divider' ) && false !== strpos( $public_css, 'z-index: 4' ), 'divider and handle remain above image layers' );
 bafrt_assert( false !== strpos( $public_js, "stage.addEventListener('pointerdown'" ) && false !== strpos( $public_js, "stage.addEventListener('pointermove'" ), 'mouse and touch pointer logic remains present' );
 bafrt_assert( false !== strpos( $public_js, "range.addEventListener('input'" ), 'native keyboard range changes remain synchronized' );
 bafrt_assert( false !== strpos( file_get_contents( dirname( __DIR__ ) . '/includes/class-bafrt-renderer.php' ), 'get_block_wrapper_attributes( $root_attributes )' ), 'renderer uses WordPress block wrapper attributes' );
+bafrt_assert( false !== strpos( $admin_css, '.bafrt-admin [hidden]' ), 'admin hidden controls cannot be overridden by field layout' );
+bafrt_assert( false !== strpos( $admin_js, 'updateRatioControls();' ) && false !== strpos( $admin_js, 'selectedVariant(state.before)' ), 'admin Auto ratio follows selected Before variant' );
+bafrt_assert( false !== strpos( $admin_php, 'value="3/2" data-bafrt-field="customRatio"' ) && false === strpos( $admin_php, 'data-bafrt-field="customRatio" inputmode="numeric" placeholder=' ), 'Custom ratio starts with a real 3/2 value' );
+bafrt_assert( false !== strpos( $admin_php, "get_asset_version( 'assets/css/before-after-for-retouching-admin.css' )" ) && false !== strpos( $admin_php, "get_asset_version( 'assets/js/before-after-for-retouching-admin.js' )" ), 'admin ratio assets use cache-busting file versions' );
+bafrt_assert( false !== strpos( $admin_css, 'justify-items: end' ) && false !== strpos( $admin_css, 'text-align: right' ), 'admin footer is compact and right-aligned' );
+bafrt_assert( false !== strpos( $admin_css, '.bafrt-admin__footer a:hover' ) && false !== strpos( $admin_css, '.bafrt-admin__footer a:focus' ) && false !== strpos( $admin_css, '.bafrt-admin__footer a:focus-visible' ), 'admin footer links restore underlines for pointer and keyboard focus' );
+bafrt_assert( false !== strpos( $admin_css, 'text-decoration: none' ) && false !== strpos( $admin_css, 'text-decoration: underline' ), 'admin footer link decoration states are present' );
+$green_blog = 'green4' . '.photo';
+$english_blog = 'yellowphotoschool' . '.com';
+bafrt_assert( false === strpos( $block_js, $green_blog ) && false === strpos( $block_js, $english_blog ), 'blog domains are absent from Gutenberg JavaScript' );
+bafrt_assert( false === strpos( $public_js, $green_blog ) && false === strpos( $public_js, $english_blog ), 'blog domains are absent from frontend JavaScript' );
+bafrt_assert( false === strpos( file_get_contents( dirname( __DIR__ ) . '/includes/class-bafrt-renderer.php' ), $green_blog ), 'blog domain is absent from renderer' );
+
+foreach (
+	array(
+		'ru_RU' => 'https://' . $green_blog . '/',
+		'ru'    => 'https://' . $green_blog . '/',
+		'uk_UA' => 'https://' . $green_blog . '/uk/',
+		'uk'    => 'https://' . $green_blog . '/uk/',
+		'en_GB' => 'https://' . $english_blog . '/',
+	) as $locale => $expected_blog_url
+) {
+	$GLOBALS['bafrt_user_locale'] = $locale;
+	ob_start();
+	BAFRT_Admin::render_page();
+	$admin_html = ob_get_clean();
+	bafrt_assert( false !== strpos( $admin_html, 'href="' . $expected_blog_url . '" target="_blank" rel="noopener noreferrer"' ), "admin blog link for {$locale}" );
+	bafrt_assert( false !== strpos( $admin_html, 'href="https://profiles.wordpress.org/borisph/" target="_blank" rel="noopener noreferrer"' ), 'author link opens safely in a new tab' );
+}
+$GLOBALS['bafrt_user_locale'] = 'en_US';
+$textarea_position = strpos( $admin_html, 'id="bafrt-generated-shortcode"' );
+$help_position = strpos( $admin_html, 'id="bafrt-shortcode-help" class="description"' );
+$copy_position = strpos( $admin_html, 'data-bafrt-copy disabled' );
+bafrt_assert( false !== $textarea_position && false !== $help_position && false !== $copy_position && $textarea_position < $help_position && $help_position < $copy_position, 'shortcode help is between textarea and Copy button' );
+bafrt_assert( false !== strpos( $admin_html, 'aria-describedby="bafrt-shortcode-help"' ), 'shortcode textarea references its help text' );
+$shortcode_help = 'Paste this shortcode into the post, page, or shortcode-compatible block where you want the image comparison to appear.';
+bafrt_assert( false === strpos( $block_js, $shortcode_help ) && false === strpos( $public_js, $shortcode_help ), 'shortcode help is absent from Gutenberg and frontend JavaScript' );
+bafrt_assert( false === strpos( BAFRT_Renderer::render( array( 'before' => 123, 'after' => 124 ) ), $shortcode_help ), 'shortcode help is absent from renderer output' );
 
 $block_base = array( 'beforeId' => 123, 'afterId' => 124, 'ratio' => 'auto', 'imageSize' => 'full' );
 foreach ( array( '' => '', 'wide' => 'alignwide', 'full' => 'alignfull' ) as $align => $expected_class ) {
@@ -179,6 +263,14 @@ bafrt_assert( false === strpos( $html, 'aria-valuetext="50%%' ), 'server aria-va
 bafrt_assert( false === strpos( $html, 'bafrt-compare--divider' ) && false === strpos( $html, 'bafrt-compare--handle' ), 'divider and handle default off' );
 bafrt_assert( false === strpos( $html, 'wp-block-before-after-for-retouching-compare' ), 'shortcode renderer has no block classes' );
 bafrt_assert( false === strpos( $html, 'bafrt-compare--slider-hidden' ), 'bottom slider is visible by default' );
+bafrt_assert( 1 === substr_count( $html, 'class="bafrt-compare__label bafrt-compare__label--before"' ), 'renderer has one Before label element' );
+bafrt_assert( 1 === substr_count( $html, 'class="bafrt-compare__label bafrt-compare__label--after"' ), 'renderer has one After label element' );
+bafrt_assert( 1 === preg_match( '/bafrt-compare__layer--before[^>]*>\s*<img[^>]*bafrt-compare__image--before[^>]*>\s*<div[^>]*bafrt-compare__label--before[^>]*>.*?<\/div>\s*<\/div>\s*<div[^>]*bafrt-compare__layer--after/s', $html ), 'Before label is inside Before layer' );
+bafrt_assert( 1 === preg_match( '/bafrt-compare__layer--after[^>]*>\s*<img[^>]*bafrt-compare__image--after[^>]*>\s*<div[^>]*bafrt-compare__label--after[^>]*>.*?<\/div>\s*<\/div>\s*<div[^>]*bafrt-compare__divider/s', $html ), 'After label is inside clipped After layer before divider' );
+$start_zero = BAFRT_Renderer::render( $base + array( 'start' => 0 ) );
+$start_full = BAFRT_Renderer::render( $base + array( 'start' => 100 ) );
+bafrt_assert( false !== strpos( $start_zero, '--bafrt-position:0%' ), 'start=0 keeps the fully Before position' );
+bafrt_assert( false !== strpos( $start_full, '--bafrt-position:100%' ), 'start=100 keeps the fully After position' );
 
 $valid_ids = array( 123, '123', ' 123 ', '000123' );
 foreach ( $valid_ids as $valid_id ) {

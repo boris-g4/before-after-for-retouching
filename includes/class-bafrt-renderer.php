@@ -156,12 +156,12 @@ final class BAFRT_Renderer {
 			<div class="bafrt-compare__stage" data-bafrt-stage>
 				<div class="bafrt-compare__layer bafrt-compare__layer--before">
 					<?php echo $before_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<div class="bafrt-compare__label bafrt-compare__label--before" aria-hidden="true"><?php echo esc_html( $label_before ); ?></div>
 				</div>
 				<div class="bafrt-compare__layer bafrt-compare__layer--after">
 					<?php echo $after_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<div class="bafrt-compare__label bafrt-compare__label--after" aria-hidden="true"><?php echo esc_html( $label_after ); ?></div>
 				</div>
-				<div class="bafrt-compare__label bafrt-compare__label--after" aria-hidden="true"><?php echo esc_html( $label_after ); ?></div>
-				<div class="bafrt-compare__label bafrt-compare__label--before" aria-hidden="true"><?php echo esc_html( $label_before ); ?></div>
 				<div class="bafrt-compare__divider" aria-hidden="true">
 					<span class="bafrt-compare__handle"></span>
 				</div>
