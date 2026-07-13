@@ -1,0 +1,252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Before & After for Retouching 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%1$s%% of the %2$s image is visible"
+msgstr ""
+
+msgid "(opens in a new tab)"
+msgstr ""
+
+msgid "50% of the After image is visible"
+msgstr ""
+
+msgid "Additional CSS class"
+msgstr ""
+
+msgid "After"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "After image"
+msgstr ""
+
+msgid "After label"
+msgstr ""
+
+msgid "An image could not be found or is not a valid image attachment."
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Aspect ratio"
+msgstr ""
+
+msgid "Auto (Before image)"
+msgstr ""
+
+msgid "Auto (recommended)"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "Before"
+msgstr ""
+
+msgid "Before & After"
+msgstr ""
+
+msgid "Before & After Comparison"
+msgstr ""
+
+msgid "Before & After Generator"
+msgstr ""
+
+msgid "Before and after comparison position"
+msgstr ""
+
+msgid "Before and after image comparison"
+msgstr ""
+
+msgid "Before image"
+msgstr ""
+
+msgid "Before label"
+msgstr ""
+
+msgid "Both Before and After images are required."
+msgstr ""
+
+msgid "Choose two images, adjust the comparison, and copy the generated shortcode."
+msgstr ""
+
+msgid "Click and drag"
+msgstr ""
+
+msgid "Colors and advanced settings"
+msgstr ""
+
+msgid "Compare a Before and After image with an interactive slider."
+msgstr ""
+
+msgid "comparison"
+msgstr ""
+
+msgid "Comparison settings"
+msgstr ""
+
+msgid "Contain (no cropping)"
+msgstr ""
+
+msgid "Copy failed. Select the shortcode and copy it manually."
+msgstr ""
+
+msgid "Copy shortcode"
+msgstr ""
+
+msgid "Copy the shortcode from the Media → Before & After generator."
+msgstr ""
+
+msgid "Cover (may crop)"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Custom ratio"
+msgstr ""
+
+msgid "Divider color"
+msgstr ""
+
+msgid "Divider width"
+msgstr ""
+
+msgid "Eager"
+msgstr ""
+
+msgid "Enter a custom ratio in width/height format, for example 3/2."
+msgstr ""
+
+msgid "Follow pointer"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
+msgid "Generated shortcode"
+msgstr ""
+
+msgid "Handle color"
+msgstr ""
+
+msgid "Image fit"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Initial position"
+msgstr ""
+
+msgid "Label background"
+msgstr ""
+
+msgid "Label text color"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Lazy"
+msgstr ""
+
+msgid "Live preview"
+msgstr ""
+
+msgid "Loading"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Medium large"
+msgstr ""
+
+msgid "No image selected"
+msgstr ""
+
+msgid "of the After image is visible"
+msgstr ""
+
+msgid "Plugin by"
+msgstr ""
+
+msgid "Pointer behavior"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Replace image"
+msgstr ""
+
+msgid "Select both images to generate a shortcode."
+msgstr ""
+
+msgid "Select both images to preview the comparison."
+msgstr ""
+
+msgid "Select both images to see the preview."
+msgstr ""
+
+msgid "Select image"
+msgstr ""
+
+msgid "Select the After image"
+msgstr ""
+
+msgid "Select the Before image"
+msgstr ""
+
+msgid "Shortcode"
+msgstr ""
+
+msgid "Shortcode copied."
+msgstr ""
+
+msgid "Show After label"
+msgstr ""
+
+msgid "Show Before label"
+msgstr ""
+
+msgid "Show bottom slider"
+msgstr ""
+
+msgid "Show divider"
+msgstr ""
+
+msgid "Show handle"
+msgstr ""
+
+msgid "Swap images"
+msgstr ""
+
+msgid "The selected images have noticeably different aspect ratios. Alignment may be inaccurate."
+msgstr ""
+
+msgid "The selected images have noticeably different pixel dimensions. For the best comparison, use matching exports."
+msgstr ""
+
+msgid "Thumbnail"
+msgstr ""
+
+msgid "Use the Left and Right arrow keys to adjust the comparison."
+msgstr ""
+
+msgid "Use this image"
+msgstr ""
+
+msgid "WordPress image size"
+msgstr ""
+
+msgid "You do not have permission to access this page."
+msgstr ""
+

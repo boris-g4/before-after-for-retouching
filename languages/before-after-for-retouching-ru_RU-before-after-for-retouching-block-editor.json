@@ -1,0 +1,261 @@
+{
+    "translation-revision-date":  "2026-07-13 19:02+0000",
+    "generator":  "Before \u0026 After for Retouching translation builder",
+    "source":  "assets/js/before-after-for-retouching-block.js",
+    "domain":  "messages",
+    "locale_data":  {
+                        "messages":  {
+                                         "":  {
+                                                  "domain":  "messages",
+                                                  "lang":  "ru_RU",
+                                                  "plural-forms":  "nplurals=3; plural=(n%10==1 \u0026\u0026 n%100!=11 ? 0 : n%10\u003e=2 \u0026\u0026 n%10\u003c=4 \u0026\u0026 (n%100\u003c10 || n%100\u003e=20) ? 1 : 2);"
+                                              },
+                                         "%1$s%% of the %2$s image is visible":  [
+                                                                                     "Видно %1$s%% изображения «%2$s»"
+                                                                                 ],
+                                         "(opens in a new tab)":  [
+                                                                      "(открывается в новой вкладке)"
+                                                                  ],
+                                         "50% of the After image is visible":  [
+                                                                                   "Видно 50% изображения После"
+                                                                               ],
+                                         "Additional CSS class":  [
+                                                                      "Дополнительный CSS-класс"
+                                                                  ],
+                                         "After":  [
+                                                       "После"
+                                                   ],
+                                         "After image":  [
+                                                             "Изображение После"
+                                                         ],
+                                         "After label":  [
+                                                             "Подпись После"
+                                                         ],
+                                         "An image could not be found or is not a valid image attachment.":  [
+                                                                                                                 "Изображение не найдено или вложение не является изображением."
+                                                                                                             ],
+                                         "Appearance":  [
+                                                            "Внешний вид"
+                                                        ],
+                                         "Aspect ratio":  [
+                                                              "Соотношение сторон"
+                                                          ],
+                                         "Auto (Before image)":  [
+                                                                     "Автоматически (изображение До)"
+                                                                 ],
+                                         "Auto (recommended)":  [
+                                                                    "Автоматически (рекомендуется)"
+                                                                ],
+                                         "Before":  [
+                                                        "До"
+                                                    ],
+                                         "Before \u0026 After":  [
+                                                                     "До и После"
+                                                                 ],
+                                         "Before \u0026 After Comparison":  [
+                                                                                "Сравнение До и После"
+                                                                            ],
+                                         "Before \u0026 After Generator":  [
+                                                                               "Генератор До и После"
+                                                                           ],
+                                         "Before and after comparison position":  [
+                                                                                      "Позиция сравнения До и После"
+                                                                                  ],
+                                         "Before and after image comparison":  [
+                                                                                   "Сравнение изображений До и После"
+                                                                               ],
+                                         "Before image":  [
+                                                              "Изображение До"
+                                                          ],
+                                         "Before label":  [
+                                                              "Подпись До"
+                                                          ],
+                                         "Both Before and After images are required.":  [
+                                                                                            "Необходимы оба изображения: До и После."
+                                                                                        ],
+                                         "Choose two images, adjust the comparison, and copy the generated shortcode.":  [
+                                                                                                                             "Выберите два изображения, настройте сравнение и скопируйте созданный шорткод."
+                                                                                                                         ],
+                                         "Click and drag":  [
+                                                                "Нажатие и перетаскивание"
+                                                            ],
+                                         "Colors and advanced settings":  [
+                                                                              "Цвета и расширенные настройки"
+                                                                          ],
+                                         "Compare a Before and After image with an interactive slider.":  [
+                                                                                                              "Сравнивайте изображения До и После с помощью интерактивного ползунка."
+                                                                                                          ],
+                                         "Comparison settings":  [
+                                                                     "Настройки сравнения"
+                                                                 ],
+                                         "Contain (no cropping)":  [
+                                                                       "Вместить (без обрезки)"
+                                                                   ],
+                                         "Copy failed. Select the shortcode and copy it manually.":  [
+                                                                                                         "Не удалось скопировать. Выделите шорткод и скопируйте его вручную."
+                                                                                                     ],
+                                         "Copy shortcode":  [
+                                                                "Копировать шорткод"
+                                                            ],
+                                         "Copy the shortcode from the Media → Before \u0026 After generator.":  [
+                                                                                                                    "Скопируйте шорткод в генераторе Медиафайлы → До и После."
+                                                                                                                ],
+                                         "Cover (may crop)":  [
+                                                                  "Заполнить (возможна обрезка)"
+                                                              ],
+                                         "Custom":  [
+                                                        "Собственное"
+                                                    ],
+                                         "Custom ratio":  [
+                                                              "Собственные пропорции"
+                                                          ],
+                                         "Divider color":  [
+                                                               "Цвет разделителя"
+                                                           ],
+                                         "Divider width":  [
+                                                               "Толщина разделителя"
+                                                           ],
+                                         "Eager":  [
+                                                       "Немедленная"
+                                                   ],
+                                         "Enter a custom ratio in width/height format, for example 3/2.":  [
+                                                                                                               "Введите собственные пропорции в формате ширина/высота, например 3/2."
+                                                                                                           ],
+                                         "Follow pointer":  [
+                                                                "Следовать за указателем"
+                                                            ],
+                                         "Full":  [
+                                                      "Полный"
+                                                  ],
+                                         "Generated shortcode":  [
+                                                                     "Созданный шорткод"
+                                                                 ],
+                                         "Handle color":  [
+                                                              "Цвет ползунка"
+                                                          ],
+                                         "Image fit":  [
+                                                           "Заполнение изображения"
+                                                       ],
+                                         "Images":  [
+                                                        "Изображения"
+                                                    ],
+                                         "Initial position":  [
+                                                                  "Начальная позиция"
+                                                              ],
+                                         "Label background":  [
+                                                                  "Фон подписи"
+                                                              ],
+                                         "Label text color":  [
+                                                                  "Цвет текста подписи"
+                                                              ],
+                                         "Large":  [
+                                                       "Большой"
+                                                   ],
+                                         "Lazy":  [
+                                                      "Отложенная"
+                                                  ],
+                                         "Live preview":  [
+                                                              "Предварительный просмотр"
+                                                          ],
+                                         "Loading":  [
+                                                         "Загрузка"
+                                                     ],
+                                         "Medium":  [
+                                                        "Средний"
+                                                    ],
+                                         "Medium large":  [
+                                                              "Средний большой"
+                                                          ],
+                                         "No image selected":  [
+                                                                   "Изображение не выбрано"
+                                                               ],
+                                         "Plugin by":  [
+                                                           "Плагин от"
+                                                       ],
+                                         "Pointer behavior":  [
+                                                                  "Поведение указателя"
+                                                              ],
+                                         "Remove":  [
+                                                        "Удалить"
+                                                    ],
+                                         "Replace image":  [
+                                                               "Заменить изображение"
+                                                           ],
+                                         "Select both images to generate a shortcode.":  [
+                                                                                             "Выберите оба изображения, чтобы создать шорткод."
+                                                                                         ],
+                                         "Select both images to preview the comparison.":  [
+                                                                                               "Выберите оба изображения для предварительного просмотра сравнения."
+                                                                                           ],
+                                         "Select both images to see the preview.":  [
+                                                                                        "Выберите оба изображения, чтобы увидеть предварительный просмотр."
+                                                                                    ],
+                                         "Select image":  [
+                                                              "Выбрать изображение"
+                                                          ],
+                                         "Select the After image":  [
+                                                                        "Выберите изображение После"
+                                                                    ],
+                                         "Select the Before image":  [
+                                                                         "Выберите изображение До"
+                                                                     ],
+                                         "Shortcode":  [
+                                                           "Шорткод"
+                                                       ],
+                                         "Shortcode copied.":  [
+                                                                   "Шорткод скопирован."
+                                                               ],
+                                         "Show After label":  [
+                                                                  "Показывать подпись После"
+                                                              ],
+                                         "Show Before label":  [
+                                                                   "Показывать подпись До"
+                                                               ],
+                                         "Show bottom slider":  [
+                                                                    "Показывать нижний ползунок"
+                                                                ],
+                                         "Show divider":  [
+                                                              "Показывать разделитель"
+                                                          ],
+                                         "Show handle":  [
+                                                             "Показывать ползунок"
+                                                         ],
+                                         "Swap images":  [
+                                                             "Поменять изображения местами"
+                                                         ],
+                                         "The selected images have noticeably different aspect ratios. Alignment may be inaccurate.":  [
+                                                                                                                                           "Выбранные изображения имеют заметно разные пропорции. Совмещение может быть неточным."
+                                                                                                                                       ],
+                                         "The selected images have noticeably different pixel dimensions. For the best comparison, use matching exports.":  [
+                                                                                                                                                                "Выбранные изображения имеют заметно разные размеры в пикселях. Для наилучшего сравнения используйте одинаковые параметры экспорта."
+                                                                                                                                                            ],
+                                         "Thumbnail":  [
+                                                           "Миниатюра"
+                                                       ],
+                                         "Use the Left and Right arrow keys to adjust the comparison.":  [
+                                                                                                             "Используйте клавиши со стрелками влево и вправо, чтобы настроить сравнение."
+                                                                                                         ],
+                                         "Use this image":  [
+                                                                "Использовать это изображение"
+                                                            ],
+                                         "WordPress image size":  [
+                                                                      "Размер изображения WordPress"
+                                                                  ],
+                                         "You do not have permission to access this page.":  [
+                                                                                                 "У вас нет разрешения на доступ к этой странице."
+                                                                                             ],
+                                         "after":  [
+                                                       "после"
+                                                   ],
+                                         "before":  [
+                                                        "до"
+                                                    ],
+                                         "comparison":  [
+                                                            "сравнение"
+                                                        ],
+                                         "of the After image is visible":  [
+                                                                               "изображения После видно"
+                                                                           ]
+                                     }
+                    }
+}

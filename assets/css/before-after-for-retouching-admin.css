@@ -1,0 +1,155 @@
+.bafrt-admin {
+  max-width: 1440px;
+}
+
+.bafrt-admin__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
+  gap: 20px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.bafrt-admin__main {
+  display: grid;
+  gap: 20px;
+}
+
+.bafrt-panel {
+  padding: 20px;
+  border: 1px solid #c3c4c7;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.bafrt-panel > :first-child {
+  margin-top: 0;
+}
+
+.bafrt-panel > :last-child {
+  margin-bottom: 0;
+}
+
+.bafrt-panel--sticky {
+  position: sticky;
+  top: 52px;
+}
+
+.bafrt-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.bafrt-image-picker {
+  padding: 14px;
+  border: 1px solid #dcdcde;
+  background: #f6f7f7;
+}
+
+.bafrt-image-picker h3 {
+  margin-top: 0;
+}
+
+.bafrt-image-picker__preview {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  border: 1px dashed #a7aaad;
+  background: #fff;
+}
+
+.bafrt-image-picker__preview img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+}
+
+.bafrt-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.bafrt-field {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+  font-weight: 600;
+}
+
+.bafrt-field input:not([type="range"]):not([type="color"]),
+.bafrt-field select {
+  width: 100%;
+  max-width: none;
+}
+
+.bafrt-field input[type="color"] {
+  width: 70px;
+  height: 36px;
+  padding: 2px;
+}
+
+.bafrt-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin-bottom: 18px;
+}
+
+.bafrt-advanced {
+  margin-top: 20px;
+}
+
+.bafrt-advanced summary {
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.bafrt-preview-empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 30px;
+  border: 1px dashed #a7aaad;
+  color: #646970;
+  text-align: center;
+}
+
+.bafrt-preview {
+  max-height: 65vh;
+}
+
+.bafrt-preview .bafrt-compare__stage {
+  max-height: 55vh;
+}
+
+.bafrt-warnings .notice {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+}
+
+.bafrt-author {
+  margin: 20px 0 0;
+  color: #646970;
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .bafrt-admin__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bafrt-panel--sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 782px) {
+  .bafrt-image-grid,
+  .bafrt-fields {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,253 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Before & After for Retouching 1.0.0\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%1$s%% of the %2$s image is visible"
+msgstr "Видно %1$s%% зображення «%2$s»"
+
+msgid "(opens in a new tab)"
+msgstr "(відкривається в новій вкладці)"
+
+msgid "50% of the After image is visible"
+msgstr "Видно 50% зображення Після"
+
+msgid "Additional CSS class"
+msgstr "Додатковий CSS-клас"
+
+msgid "After"
+msgstr "Після"
+
+msgid "After image"
+msgstr "Зображення Після"
+
+msgid "After label"
+msgstr "Підпис Після"
+
+msgid "An image could not be found or is not a valid image attachment."
+msgstr "Зображення не знайдено або вкладення не є зображенням."
+
+msgid "Appearance"
+msgstr "Вигляд"
+
+msgid "Aspect ratio"
+msgstr "Співвідношення сторін"
+
+msgid "Auto (Before image)"
+msgstr "Автоматично (зображення До)"
+
+msgid "Auto (recommended)"
+msgstr "Автоматично (рекомендовано)"
+
+msgid "Before"
+msgstr "До"
+
+msgid "Before & After"
+msgstr "До і Після"
+
+msgid "Before & After Comparison"
+msgstr "Порівняння До і Після"
+
+msgid "Before & After Generator"
+msgstr "Генератор До і Після"
+
+msgid "Before and after comparison position"
+msgstr "Позиція порівняння До і Після"
+
+msgid "Before and after image comparison"
+msgstr "Порівняння зображень До і Після"
+
+msgid "Before image"
+msgstr "Зображення До"
+
+msgid "Before label"
+msgstr "Підпис До"
+
+msgid "Both Before and After images are required."
+msgstr "Потрібні обидва зображення: До і Після."
+
+msgid "Choose two images, adjust the comparison, and copy the generated shortcode."
+msgstr "Виберіть два зображення, налаштуйте порівняння та скопіюйте створений шорткод."
+
+msgid "Click and drag"
+msgstr "Натискання і перетягування"
+
+msgid "Colors and advanced settings"
+msgstr "Кольори та розширені налаштування"
+
+msgid "Compare a Before and After image with an interactive slider."
+msgstr "Порівнюйте зображення До і Після за допомогою інтерактивного повзунка."
+
+msgid "Comparison settings"
+msgstr "Налаштування порівняння"
+
+msgid "Contain (no cropping)"
+msgstr "Вмістити (без обрізання)"
+
+msgid "Copy failed. Select the shortcode and copy it manually."
+msgstr "Не вдалося скопіювати. Виділіть шорткод і скопіюйте його вручну."
+
+msgid "Copy shortcode"
+msgstr "Копіювати шорткод"
+
+msgid "Copy the shortcode from the Media → Before & After generator."
+msgstr "Скопіюйте шорткод у генераторі Медіафайли → До і Після."
+
+msgid "Cover (may crop)"
+msgstr "Заповнити (можливе обрізання)"
+
+msgid "Custom"
+msgstr "Власне"
+
+msgid "Custom ratio"
+msgstr "Власні пропорції"
+
+msgid "Divider color"
+msgstr "Колір роздільника"
+
+msgid "Divider width"
+msgstr "Товщина роздільника"
+
+msgid "Eager"
+msgstr "Негайне"
+
+msgid "Enter a custom ratio in width/height format, for example 3/2."
+msgstr "Введіть власні пропорції у форматі ширина/висота, наприклад 3/2."
+
+msgid "Follow pointer"
+msgstr "Слідувати за вказівником"
+
+msgid "Full"
+msgstr "Повний"
+
+msgid "Generated shortcode"
+msgstr "Створений шорткод"
+
+msgid "Handle color"
+msgstr "Колір повзунка"
+
+msgid "Image fit"
+msgstr "Заповнення зображення"
+
+msgid "Images"
+msgstr "Зображення"
+
+msgid "Initial position"
+msgstr "Початкова позиція"
+
+msgid "Label background"
+msgstr "Тло підпису"
+
+msgid "Label text color"
+msgstr "Колір тексту підпису"
+
+msgid "Large"
+msgstr "Великий"
+
+msgid "Lazy"
+msgstr "Відкладене"
+
+msgid "Live preview"
+msgstr "Попередній перегляд"
+
+msgid "Loading"
+msgstr "Завантаження"
+
+msgid "Medium"
+msgstr "Середній"
+
+msgid "Medium large"
+msgstr "Середній великий"
+
+msgid "No image selected"
+msgstr "Зображення не вибрано"
+
+msgid "Plugin by"
+msgstr "Плагін від"
+
+msgid "Pointer behavior"
+msgstr "Поведінка вказівника"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Replace image"
+msgstr "Замінити зображення"
+
+msgid "Select both images to generate a shortcode."
+msgstr "Виберіть обидва зображення, щоб створити шорткод."
+
+msgid "Select both images to preview the comparison."
+msgstr "Виберіть обидва зображення для попереднього перегляду порівняння."
+
+msgid "Select both images to see the preview."
+msgstr "Виберіть обидва зображення, щоб побачити попередній перегляд."
+
+msgid "Select image"
+msgstr "Вибрати зображення"
+
+msgid "Select the After image"
+msgstr "Виберіть зображення Після"
+
+msgid "Select the Before image"
+msgstr "Виберіть зображення До"
+
+msgid "Shortcode"
+msgstr "Шорткод"
+
+msgid "Shortcode copied."
+msgstr "Шорткод скопійовано."
+
+msgid "Show After label"
+msgstr "Показувати підпис Після"
+
+msgid "Show Before label"
+msgstr "Показувати підпис До"
+
+msgid "Show bottom slider"
+msgstr "Показувати нижній повзунок"
+
+msgid "Show divider"
+msgstr "Показувати роздільник"
+
+msgid "Show handle"
+msgstr "Показувати повзунок"
+
+msgid "Swap images"
+msgstr "Поміняти зображення місцями"
+
+msgid "The selected images have noticeably different aspect ratios. Alignment may be inaccurate."
+msgstr "Вибрані зображення мають помітно різні пропорції. Суміщення може бути неточним."
+
+msgid "The selected images have noticeably different pixel dimensions. For the best comparison, use matching exports."
+msgstr "Вибрані зображення мають помітно різні розміри в пікселях. Для найкращого порівняння використовуйте однакові параметри експорту."
+
+msgid "Thumbnail"
+msgstr "Мініатюра"
+
+msgid "Use the Left and Right arrow keys to adjust the comparison."
+msgstr "Використовуйте клавіші зі стрілками ліворуч і праворуч, щоб налаштувати порівняння."
+
+msgid "Use this image"
+msgstr "Використати це зображення"
+
+msgid "WordPress image size"
+msgstr "Розмір зображення WordPress"
+
+msgid "You do not have permission to access this page."
+msgstr "У вас немає дозволу на доступ до цієї сторінки."
+
+msgid "after"
+msgstr "після"
+
+msgid "before"
+msgstr "до"
+
+msgid "comparison"
+msgstr "порівняння"
+
+msgid "of the After image is visible"
+msgstr "зображення Після видно"
+
