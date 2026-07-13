@@ -3,7 +3,7 @@
  * Plugin Name:       Before & After for Retouching
  * Description:       An accessible before-and-after image comparison block and shortcode with a visual generator.
  * Version:           1.0.0
- * Requires at least: 6.0
+ * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Boris PH
  * Author URI:        https://profiles.wordpress.org/borisph/

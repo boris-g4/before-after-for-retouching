@@ -1,7 +1,7 @@
 === Before & After for Retouching ===
 Contributors: borisph
 Tags: before after, image comparison, photo retouching, slider, gutenberg
-Requires at least: 6.0
+Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.0
@@ -35,7 +35,7 @@ Features:
 * Automatic, lazy, and eager loading modes.
 * Keyboard and screen-reader support.
 * English, Ukrainian, and Russian translations.
-* No jQuery, tracking, remote scripts, or external service dependency.
+* No additional jQuery dependencies, tracking, remote scripts, or dependencies on external services.
 
 == Installation ==
 
